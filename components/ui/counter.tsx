@@ -8,9 +8,10 @@ interface CounterProps {
   duration?: number
   suffix?: string
   prefix?: string
+  className?: string
 }
 
-export function Counter({ end, duration = 2000, suffix = "", prefix = "" }: CounterProps) {
+export function Counter({ end, duration = 2000, suffix = "", prefix = "", className = "" }: CounterProps) {
   const [count, setCount] = useState(0)
   const { ref, isInView } = useInView({ threshold: 0.5 })
   const countRef = useRef(0)
@@ -38,7 +39,14 @@ export function Counter({ end, duration = 2000, suffix = "", prefix = "" }: Coun
   }, [isInView, end, duration])
 
   return (
-    <span ref={ref} className="tabular-nums">
+    <span 
+      ref={ref} 
+      className={`tabular-nums relative inline-block ${className}`}
+      // هنا أضفنا تأثير التوهج الذهبي
+      style={{
+        textShadow: "0 0 15px rgba(212, 175, 55, 0.5), 0 0 30px rgba(212, 175, 55, 0.2)" 
+      }}
+    >
       {prefix}{count}{suffix}
     </span>
   )

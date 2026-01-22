@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { useState, useEffect } from "react"
 import { useLanguage } from "@/lib/language-context"
 import { Menu, X, ChevronDown } from "lucide-react"
@@ -26,21 +27,12 @@ export function Navigation() {
   }, [])
 
   const navItems = [
-    { key: "home", href: "#hero" },
-    { key: "about", href: "#about" },
-    { key: "services", href: "#services" },
-    { key: "gallery", href: "#gallery" },
-    { key: "quality", href: "#quality" },
-    { key: "contact", href: "#contact" },
+    { key: "home", href: "/" },
+    { key: "about", href: "/about" },
+    { key: "services", href: "/services" },
+    { key: "gallery", href: "/projects" },
+    { key: "contact", href: "/contact" },
   ]
-
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href)
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
-    }
-    setIsMobileMenuOpen(false)
-  }
 
   const languages: Language[] = ["en", "de", "ar"]
 
@@ -51,30 +43,34 @@ export function Navigation() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-24">
+        {/* increased height from h-24 to h-28 */}
+        <div className="flex items-center justify-between h-24 md:h-28 transition-all duration-300">
           <div className="shrink-0">
-            {/* FIX: Corrected filename to FullLogo_Transparent.png */}
-            <img 
-              src="/images/FullLogo_Transparent.png" 
-              alt="Alftian Facility & Bau GmbH" 
-              className="h-16 w-auto object-contain hover:scale-105 transition-transform duration-300" 
-            />
+            <Link href="/">
+              <img 
+                src="/images/FullLogo_Transparent.png" 
+                alt="Alftian Facility & Bau GmbH" 
+                // Increased logo size: h-20 (mobile) to h-24 (desktop)
+                className="h-20 md:h-24 w-auto object-contain hover:scale-105 transition-transform duration-300" 
+              />
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
-              <button
+              <Link
                 key={item.key}
-                onClick={() => scrollToSection(item.href)}
+                href={item.href}
                 className="text-white/80 hover:text-gold transition-all duration-300 text-sm font-medium tracking-wide relative group"
               >
                 {t.nav[item.key as keyof typeof t.nav]}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-full" />
-              </button>
+              </Link>
             ))}
           </div>
 
+          {/* Language Switcher - Desktop */}
           <div className="hidden md:flex items-center gap-4">
             <div className="relative">
               <button
@@ -123,14 +119,16 @@ export function Navigation() {
       >
         <div className="px-4 py-6 space-y-4">
           {navItems.map((item) => (
-            <button
+            <Link
               key={item.key}
-              onClick={() => scrollToSection(item.href)}
+              href={item.href}
+              onClick={() => setIsMobileMenuOpen(false)}
               className="block w-full text-start text-white/80 hover:text-gold transition-colors duration-300 py-3 border-b border-gold/10"
             >
               {t.nav[item.key as keyof typeof t.nav]}
-            </button>
+            </Link>
           ))}
+          
           <div className="flex gap-2 pt-4">
             {languages.map((lang) => (
               <button

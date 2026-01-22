@@ -1,140 +1,131 @@
 "use client"
 
-import { useLanguage } from "@/lib/language-context"
-import { useInView } from "@/hooks/use-in-view"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { MapPin, Calendar, Maximize2, ArrowUpRight } from "lucide-react"
 import { useState } from "react"
-
-const images = [
-  {
-    src: "/images/gemini-generated-image-14f7ih14f7ih14f7.jpeg",
-    category: "Construction",
-  },
-  {
-    src: "/images/gemini-generated-image-bjnhfbbjnhfbbjnh.jpeg",
-    category: "Modernization",
-  },
-  {
-    src: "/images/gemini-generated-image-d2gul3d2gul3d2gu.jpeg",
-    category: "Facility Mgmt",
-  },
-  {
-    src: "/images/gemini-generated-image-g4gt4og4gt4og4gt.jpeg",
-    category: "Construction",
-  },
-]
+import { useLanguage } from "@/lib/language-context"
+import { motion, AnimatePresence } from "framer-motion"
+import { ScrollReveal } from "@/components/ui/scroll-reveal"
+import { ArrowRight } from "lucide-react"
 
 export function GallerySection() {
   const { t } = useLanguage()
-  const { ref, isInView } = useInView({ threshold: 0.1 })
-  const [activeTab, setActiveTab] = useState("all")
+  const [filter, setFilter] = useState("all")
 
-  // Merge the image data with the translation data
-  const projects = t.gallery.projects.map((project: any, index: number) => ({
-    ...project,
-    image: images[index % images.length].src
-  }))
+  const filteredProjects = t.gallery.projects.filter(
+    (project: any) => filter === "all" || project.category.toLowerCase().includes(filter)
+  )
 
-  const filteredProjects = activeTab === "all" 
-    ? projects 
-    : projects.filter((p: any) => p.category.toLowerCase().includes(activeTab === "management" ? "facility" : activeTab))
+  const categories = ["all", "construction", "modernization", "management"]
 
   return (
-    <section id="gallery" ref={ref} className="py-24 md:py-32 bg-emerald-darker overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Header with Tabs */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
-          <div
-            className={`transition-all duration-1000 ${
-              isInView ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"
-            }`}
-          >
-            <div className="flex items-center gap-4 mb-4">
-              <div className="h-px w-12 bg-linear-to-r from-transparent to-gold" />
-              <span className="text-gold uppercase tracking-widest text-sm font-semibold">Portfolio</span>
-            </div>
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">{t.gallery.title}</h2>
-            <p className="text-white/60 max-w-md">{t.gallery.subtitle}</p>
-          </div>
+    <section id="gallery" className="py-20 md:py-32 bg-emerald-950 relative overflow-hidden">
 
-          <div 
-            className={`transition-all duration-1000 delay-200 ${
-              isInView ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"
-            }`}
-          >
-            <Tabs defaultValue="all" onValueChange={setActiveTab} className="w-full md:w-auto">
-              <TabsList className="bg-emerald-dark/50 border border-gold/10 p-1">
-                <TabsTrigger value="all" className="data-[state=active]:bg-gold data-[state=active]:text-emerald-darker">{t.gallery.filters.all}</TabsTrigger>
-                <TabsTrigger value="construction" className="data-[state=active]:bg-gold data-[state=active]:text-emerald-darker">{t.gallery.filters.construction}</TabsTrigger>
-                <TabsTrigger value="modernization" className="data-[state=active]:bg-gold data-[state=active]:text-emerald-darker">{t.gallery.filters.modernization}</TabsTrigger>
-                <TabsTrigger value="management" className="data-[state=active]:bg-gold data-[state=active]:text-emerald-darker">{t.gallery.filters.management}</TabsTrigger>
-              </TabsList>
-            </Tabs>
-          </div>
+      {/* Background Decor */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-linear-to-l from-emerald-900/20 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-gold/5 rounded-full blur-3xl" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+        {/* Header - Centered */}
+        <div className="flex flex-col items-center text-center mb-12 md:mb-16 gap-8">
+          <ScrollReveal>
+            <div className="max-w-2xl mx-auto">
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 md:mb-6">
+                {t.gallery.title}
+              </h2>
+              <p className="text-white/60 text-base md:text-lg leading-relaxed">
+                {t.gallery.subtitle}
+              </p>
+            </div>
+          </ScrollReveal>
+
+          {/* Scrollable Filters - Centered */}
+          <ScrollReveal delay={0.1}>
+            <div className="flex flex-wrap justify-center gap-2">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setFilter(cat)}
+                  className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 border whitespace-nowrap ${filter === cat
+                    ? "bg-gold text-emerald-950 border-gold"
+                    : "bg-transparent text-white/50 border-white/10 hover:border-white/30 hover:text-white"
+                    }`}
+                >
+                  {t.gallery.filters[cat as keyof typeof t.gallery.filters]}
+                </button>
+              ))}
+            </div>
+          </ScrollReveal>
         </div>
 
-        {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[400px]">
-          {filteredProjects.map((project: any, index: number) => (
-            <div
-              key={index}
-              className={`group relative overflow-hidden rounded-2xl bg-emerald-dark border border-white/5 transition-all duration-500 hover:border-gold/50 hover:shadow-[0_0_40px_rgba(212,175,55,0.15)] ${
-                index === 0 ? "md:col-span-2" : "md:col-span-1"
-              } ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20"}`}
-              style={{ transitionDelay: `${index * 150}ms` }}
-            >
-              {/* Image */}
-              <div className="absolute inset-0">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-emerald-darker/90 via-emerald-darker/20 to-transparent" />
-              </div>
-
-              {/* Status Badge */}
-              <div className="absolute top-6 left-6 z-20">
-                <span className="px-3 py-1 bg-emerald-darker/80 backdrop-blur-md border border-gold/30 text-gold text-xs font-mono uppercase tracking-wider rounded-full">
-                  {project.status}
-                </span>
-              </div>
-
-              {/* Hover Action Icon */}
-              <div className="absolute top-6 right-6 z-20 opacity-0 -translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-                <div className="w-10 h-10 rounded-full bg-gold text-emerald-darker flex items-center justify-center">
-                  <ArrowUpRight className="w-5 h-5" />
+        {/* Projects Grid */}
+        <motion.div
+          layout
+          className="flex flex-wrap justify-center gap-6 md:gap-8"
+        >
+          <AnimatePresence>
+            {filteredProjects.map((project: any, index: number) => (
+              <motion.div
+                layout
+                key={index}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                whileTap={{ scale: 0.98 }} // 👈 Touch Feedback
+                transition={{ duration: 0.3 }}
+                className="group relative h-[450px] md:h-[500px] w-full md:w-[calc(50%-1.5rem)] rounded-3xl overflow-hidden cursor-pointer bg-emerald-900/30"
+              >
+                {/* Background Image */}
+                <div className="absolute inset-0">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  {/* تدرج لوني أقوى للموبايل */}
+                  <div className="absolute inset-0 bg-linear-to-t from-emerald-950 via-emerald-950/60 to-transparent opacity-90 md:opacity-80 transition-opacity duration-500" />
                 </div>
-              </div>
 
-              {/* Content Overlay */}
-              <div className="absolute bottom-0 left-0 right-0 p-8 z-20 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                <div className="text-gold text-xs font-bold uppercase tracking-widest mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                  {project.category}
+                {/* Content Overlay */}
+                <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end">
+
+                  <div className="absolute top-6 left-6 md:top-8 md:left-8">
+                    <span className="bg-emerald-950/80 backdrop-blur-md text-gold px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border border-gold/20">
+                      {project.status}
+                    </span>
+                  </div>
+
+                  {/* 👇 التعديلات هنا:
+                      جعلنا النصوص تظهر دائماً على الموبايل (بدون translate أو opacity)
+                      وتختفي وتظهر بالأنيميشن فقط على الشاشات الكبيرة (md:)
+                  */}
+                  <div className="transform translate-y-0 md:translate-y-4 md:group-hover:translate-y-0 transition-transform duration-500">
+                    <div className="mb-2 flex items-center gap-3">
+                      <span className="text-white/50 text-xs font-mono uppercase tracking-widest">{project.year}</span>
+                      <span className="w-8 h-px bg-white/20" />
+                      <span className="text-white/50 text-xs font-mono uppercase tracking-widest">{project.location}</span>
+                    </div>
+
+                    <h3 className="text-2xl md:text-3xl font-bold text-white mb-3 md:mb-4 group-hover:text-gold transition-colors">
+                      {project.title}
+                    </h3>
+
+                    {/* الوصف ظاهر دائماً على الموبايل */}
+                    <p className="text-white/80 text-sm leading-relaxed mb-4 md:mb-6 max-w-md opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 delay-100 line-clamp-3">
+                      {project.description}
+                    </p>
+
+                    <div className="flex items-center gap-2 text-white font-bold text-sm opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 delay-200">
+                      <span>{t.common.explore}</span>
+                      <ArrowRight className="w-4 h-4 text-gold" />
+                    </div>
+                  </div>
                 </div>
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">{project.title}</h3>
-                
-                {/* Specs Grid */}
-                <div className="grid grid-cols-2 gap-4 border-t border-white/10 pt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">
-                  <div className="flex items-center gap-2 text-white/70">
-                    <MapPin className="w-4 h-4 text-gold" />
-                    <span className="text-sm">{project.location}</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-white/70">
-                    <Maximize2 className="w-4 h-4 text-gold" />
-                    <span className="text-sm">{project.size}</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-white/70">
-                    <Calendar className="w-4 h-4 text-gold" />
-                    <span className="text-sm">{project.year}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
 
       </div>
     </section>

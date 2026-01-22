@@ -1,54 +1,46 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { useInView } from "@/hooks/use-in-view"
 
-const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+"
+const CYBERPUNK_CHARS = "-_~`!@#$%^&*()+=[]{}|;:,.<>?"
 
-export function useScrambleText(text: string, duration: number = 2000) {
-  const [scrambledText, setScrambledText] = useState(text)
-  const { ref, isInView } = useInView({ threshold: 0.1 })
-  const [hasAnimated, setHasAnimated] = useState(false)
-
-  // FIX: Reset animation when the input text (language) changes
-  useEffect(() => {
-    setHasAnimated(false)
-    setScrambledText(text)
-  }, [text])
+export const useScrambleText = (text: string, duration: number = 2000, delay: number = 0) => {
+  const [displayText, setDisplayText] = useState("")
 
   useEffect(() => {
-    if (!isInView || hasAnimated) return
-
     let interval: NodeJS.Timeout
-    let iteration = 0
-    
-    const scramble = () => {
+
+    // Start after delay
+    const timeout = setTimeout(() => {
+      let iteration = 0
+
       interval = setInterval(() => {
-        setScrambledText((prev) => 
+        setDisplayText(
           text
             .split("")
             .map((letter, index) => {
               if (index < iteration) {
-                return text[index]
+                return letter
               }
-              return CHARS[Math.floor(Math.random() * CHARS.length)]
+              return CYBERPUNK_CHARS[Math.floor(Math.random() * CYBERPUNK_CHARS.length)]
             })
             .join("")
         )
 
         if (iteration >= text.length) {
           clearInterval(interval)
-          setHasAnimated(true)
         }
 
         iteration += 1 / 3
       }, 30)
+
+    }, delay)
+
+    return () => {
+      clearTimeout(timeout)
+      clearInterval(interval)
     }
+  }, [text, duration, delay])
 
-    scramble()
-
-    return () => clearInterval(interval)
-  }, [isInView, text, hasAnimated])
-
-  return { ref, text: scrambledText }
+  return displayText
 }

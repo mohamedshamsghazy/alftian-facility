@@ -1,82 +1,71 @@
 "use client"
 
 import { useLanguage } from "@/lib/language-context"
-import { useScrambleText } from "@/hooks/use-scramble-text"
-import { ChevronDown, ArrowRight } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
+import { ScrollReveal } from "@/components/ui/scroll-reveal"
+import { ArrowDown } from "lucide-react"
 
 export function HeroSection() {
   const { t } = useLanguage()
-  const { ref: titleRef, text: titleText } = useScrambleText(t.hero.title)
 
   return (
-    <section id="hero" className="relative h-screen w-full overflow-hidden bg-black">
-      {/* Video Background */}
-      <video 
-        autoPlay 
-        muted 
-        loop 
-        playsInline 
-        className="absolute inset-0 w-full h-full object-cover z-0 opacity-60"
-        src="/images/hero.mp4"
-      >
-      </video>
+    <section className="relative h-screen flex items-center justify-center overflow-hidden">
 
-      {/* Overlay Gradients */}
-      <div className="absolute inset-0 bg-linear-to-b from-black/70 via-transparent to-emerald-950/90 z-10" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.8)_100%)] z-10 pointer-events-none" />
-
-      {/* Tech Grid Overlay */}
-      <div 
-        className="absolute inset-0 z-10 opacity-[0.03] pointer-events-none"
-        style={{ backgroundImage: 'linear-gradient(rgba(212, 175, 55, 0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(212, 175, 55, 0.5) 1px, transparent 1px)', backgroundSize: '50px 50px' }}
-      />
-
-      <div className="relative z-20 flex flex-col items-center justify-center h-full px-4 text-center">
-        
-
-        {/* Scrambled Headline */}
-        <h1
-          ref={titleRef as any}
-          className="text-4xl sm:text-5xl md:text-7xl font-bold text-white max-w-5xl leading-tight tracking-tight font-sans"
-          style={{ textShadow: "0 0 40px rgba(212,175,55,0.2)" }}
+      {/* 1. Background Video */}
+      <div className="absolute inset-0 z-0">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster="/images/hero-poster.jpg"
+          className="w-full h-full object-cover min-w-full min-h-full scale-110 filter brightness-75"
         >
-          {titleText}
-        </h1>
+          <source src="/images/hero.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
 
-        <p
-          className="mt-8 text-lg sm:text-xl md:text-2xl text-white/80 max-w-2xl animate-fade-in-up animation-delay-200 font-light"
-        >
-          {t.hero.subtitle}
-        </p>
-
-        <div className="flex flex-col sm:flex-row gap-4 mt-12 animate-fade-in-up animation-delay-400">
-          <button
-            onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
-            className="px-8 py-4 bg-gold text-emerald-950 font-bold text-lg rounded-lg shadow-[0_0_30px_rgba(212,175,55,0.3)] hover:shadow-[0_0_50px_rgba(212,175,55,0.6)] hover:scale-105 transition-all duration-300 flex items-center gap-2"
-          >
-            {t.hero.cta}
-            <ArrowRight className="w-5 h-5" />
-          </button>
-          
-          <button
-            onClick={() => document.querySelector("#services")?.scrollIntoView({ behavior: "smooth" })}
-            className="px-8 py-4 bg-transparent border border-white/20 text-white font-medium text-lg rounded-lg hover:bg-white/10 hover:border-white/40 transition-all duration-300 backdrop-blur-sm"
-          >
-            Explore System
-          </button>
-        </div>
-
-        <button
-          onClick={() => document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" })}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2 text-white/50 hover:text-gold transition-colors duration-300 animate-bounce"
-          aria-label="Scroll down"
-        >
-          <div className="flex flex-col items-center gap-2">
-            <span className="text-[10px] uppercase tracking-widest font-mono">Scroll</span>
-            <ChevronDown className="w-6 h-6" />
-          </div>
-        </button>
+        {/* Overlay Effects */}
+        <div className="absolute inset-0 bg-emerald-950/40" />
+        <div className="absolute inset-0 bg-[url('/images/noise.png')] opacity-20 mix-blend-overlay" />
       </div>
+
+      {/* 2. Content - رجعنا العرض max-w-7xl عشان اللابتوب */}
+      <div className="relative z-10 text-center w-full max-w-7xl px-4 sm:px-6 mt-0 md:mt-0">
+        <ScrollReveal width="100%" className="w-full">
+
+          {/* Badge */}
+
+
+          {/* Title - كبرنا الخطوط جداً للابتوب lg:text-9xl */}
+          <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold text-white mb-6 md:mb-10 tracking-tighter drop-shadow-2xl leading-[1.1]">
+            {t.hero.title}
+          </h1>
+
+          {/* Subtitle */}
+          <p className="text-base sm:text-xl md:text-3xl text-white/90 mb-10 md:mb-14 leading-relaxed max-w-4xl mx-auto font-light drop-shadow-lg px-2">
+            {t.hero.subtitle}
+          </p>
+
+          {/* Buttons */}
+          <div className="flex flex-col sm:flex-row gap-5 justify-center items-center w-full sm:w-auto">
+            <Link href="/contact" className="w-full sm:w-auto">
+              <Button size="lg" className="w-full sm:w-auto bg-gold text-emerald-950 hover:bg-white font-bold px-10 py-7 rounded-full text-base md:text-xl shadow-[0_0_40px_rgba(212,175,55,0.4)] transition-all active:scale-95 duration-300">
+                {t.hero.cta}
+              </Button>
+            </Link>
+          </div>
+
+        </ScrollReveal>
+      </div>
+
+      {/* 3. Scroll Indicator */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 opacity-60 animate-bounce pointer-events-none">
+        <span className="text-white/50 text-xs uppercase tracking-[0.3em] hidden md:block">Scroll to Explore</span>
+        <ArrowDown className="w-6 h-6 text-white" />
+      </div>
+
     </section>
   )
 }

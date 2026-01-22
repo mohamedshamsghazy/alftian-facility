@@ -3,13 +3,9 @@
 import * as React from "react"
 import {
   Calculator,
-  Calendar,
-  CreditCard,
   Settings,
-  Smile,
   User,
   Search,
-  MapPin,
   Phone,
   LayoutGrid
 } from "lucide-react"
@@ -22,13 +18,11 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-  CommandShortcut,
 } from "@/components/ui/command"
-import { useLanguage } from "@/lib/language-context"
 
 export function CommandMenu() {
   const [open, setOpen] = React.useState(false)
-  const { t } = useLanguage()
+
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -50,7 +44,7 @@ export function CommandMenu() {
 
   return (
     <>
-      <div 
+      <div
         onClick={() => setOpen(true)}
         className="fixed bottom-8 right-8 z-40 hidden md:flex items-center gap-2 px-4 py-2 bg-black/80 backdrop-blur-md border border-white/10 rounded-full text-xs text-white/50 hover:text-white hover:border-gold/50 transition-all cursor-pointer shadow-lg"
       >

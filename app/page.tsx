@@ -1,38 +1,43 @@
-import { LanguageProvider } from "@/lib/language-context"
-import { CustomCursor } from "@/components/custom-cursor"
-import { Navigation } from "@/components/navigation"
+
 import { HeroSection } from "@/components/hero-section"
-import { LiveTicker } from "@/components/live-ticker" // New
+
 import { AboutSection } from "@/components/about-section"
-import { EcoCalculator } from "@/components/eco-calculator" // New
-import { ServicesSection } from "@/components/services-section"
-import { DigitalTwinSection } from "@/components/digital-twin-section" // New
-import { GallerySection } from "@/components/gallery-section"
 import { QualitySection } from "@/components/quality-section"
+import { EcoCalculator } from "@/components/eco-calculator"
+import { GallerySection } from "@/components/gallery-section"
 import { ContactSection } from "@/components/contact-section"
-import { Footer } from "@/components/footer"
-import { Preloader } from "@/components/preloader"   // New
-import { CommandMenu } from "@/components/command-menu" // New
+import { BentoFeatures } from "@/components/bento-features" // القسم الجديد
+import { ScrollReveal } from "@/components/ui/scroll-reveal"
 
 export default function Home() {
   return (
-    <LanguageProvider>
-      <Preloader /> {/* Shows the Logo Loading Screen */}
-      <CustomCursor />
-      <Navigation />
-      <CommandMenu /> {/* Enables Ctrl+K Menu */}
-      <main className="cursor-none">
-        <HeroSection />
-        <LiveTicker /> {/* The scrolling text bar */}
+    <main className="overflow-hidden">
+      {/* Hero doesn't need reveal, it has its own entrance */}
+      <HeroSection />
+
+
+
+      {/* Each section is now wrapped for smooth entry */}
+      <ScrollReveal width="100%">
         <AboutSection />
-        <EcoCalculator /> {/* The CO2 slider */}
-        <ServicesSection />
-        <DigitalTwinSection /> {/* The X-Ray Scanner */}
-        <GallerySection />
-        <QualitySection />
-        <ContactSection />
-        <Footer />
-      </main>
-    </LanguageProvider>
+      </ScrollReveal>
+      {/* New "Mega" Section to enlarge the page */}
+      <BentoFeatures />
+
+
+
+
+      <QualitySection />
+
+      <ScrollReveal width="100%">
+        <EcoCalculator />
+      </ScrollReveal>
+
+      <GallerySection />
+
+
+
+      <ContactSection />
+    </main>
   )
 }
