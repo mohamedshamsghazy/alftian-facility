@@ -1,7 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
 
-import { Analytics } from "@vercel/analytics/next"
+import { GdprAnalytics } from "@/components/gdpr-analytics"
 import { ReactLenis } from 'lenis/react'
 import "./globals.css"
 
@@ -98,7 +98,7 @@ export default function RootLayout({
             <Toaster />
           </LanguageProvider>
         </ReactLenis>
-        <Analytics />
+        <GdprAnalytics />
       </body>
     </html>
   )

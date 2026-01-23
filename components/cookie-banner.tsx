@@ -21,11 +21,13 @@ export function CookieBanner() {
 
   const handleAccept = () => {
     localStorage.setItem("alftian-cookie-consent", "true")
+    window.dispatchEvent(new Event("cookie-consent-updated"))
     setIsVisible(false)
   }
 
   const handleDecline = () => {
     localStorage.setItem("alftian-cookie-consent", "false")
+    window.dispatchEvent(new Event("cookie-consent-updated"))
     setIsVisible(false)
   }
 
