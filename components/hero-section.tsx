@@ -31,14 +31,14 @@ export function HeroSection() {
           muted
           playsInline
           poster="/images/hero-poster.jpg"
-          className="w-full h-full object-cover min-w-full min-h-full scale-110 filter brightness-75"
+          className="w-full h-full object-cover min-w-full min-h-full scale-110 filter brightness-50"
         >
           {videoSource && <source src={videoSource} type="video/mp4" />}
           Your browser does not support the video tag.
         </video>
 
         {/* Overlay Effects */}
-        <div className="absolute inset-0 bg-emerald-950/40" />
+        <div className="absolute inset-0 bg-emerald-950/60" />
         <div className="absolute inset-0 bg-[url('/images/noise.png')] opacity-20 mix-blend-overlay" />
       </div>
 
