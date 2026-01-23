@@ -34,10 +34,13 @@ export const metadata: Metadata = {
     shortcut: "/images/fulllogo-transparent.png",
     apple: "/images/fulllogo-transparent.png",
   },
+  verification: {
+    google: "HmXR0VBvywMQxtwnU7lPRCu95F64IcbKDg4ZwvdrfMw",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://alftian-bau.com", // Keeping it generic as I don't know the final domain, using a placeholder based on email
+    url: "https://alftian-bau.com",
     title: "Alftian Facility & Bau GmbH - Building Excellence",
     description: "Your trusted partner for high-quality construction and facility management services in Germany.",
     siteName: "Alftian Facility & Bau GmbH",
