@@ -14,8 +14,16 @@ export function HeroSection() {
   const [videoSource, setVideoSource] = useState<string | null>(null)
 
   useEffect(() => {
-    // Check if device is likely desktop (width > 768px)
-    if (window.innerWidth > 768) {
+    // Smart Loading: Check for "Data Saver" mode or slow connection
+    // Note: This API is mainly supported on Chrome/Android. iOS will default to loading the video.
+    const connection = (navigator as any).connection || (navigator as any).mozConnection || (navigator as any).webkitConnection;
+
+    if (connection && (connection.saveData || connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g')) {
+      // Slow connection? Keep existing poster, do not load video
+      console.log("Slow connection detected, skipping video load")
+      setVideoSource(null)
+    } else {
+      // Good connection? Load full video
       setVideoSource("/images/hero.mp4")
     }
   }, [])
