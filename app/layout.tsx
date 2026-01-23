@@ -11,6 +11,7 @@ import { CustomCursor } from "@/components/custom-cursor"
 
 // 👇 1. التعديل هنا: غيرنا الاستيراد من Navigation لـ Navbar
 import { Navbar } from "@/components/navbar"
+import { JsonLd } from "@/components/json-ld"
 
 import { Footer } from "@/components/footer"
 import { CommandMenu } from "@/components/command-menu"
@@ -81,6 +82,7 @@ export default function RootLayout({
       <body className={`font-sans antialiased bg-[#002A26] bg-noise cursor-none`}>
         <ReactLenis root>
           <LanguageProvider>
+            <JsonLd />
             <Preloader />
             <CustomCursor />
 
