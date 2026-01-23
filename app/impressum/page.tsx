@@ -96,10 +96,8 @@ export default function ImpressumPage() {
       content: (
         <div className="space-y-2">
           <div className="text-sm text-white/50">{t.impressumPage?.vatText || "gemäß § 27 a Umsatzsteuergesetz"}</div>
-          <div className="flex items-center gap-2">
-            <span className="inline-flex items-center px-3 py-1 rounded-full bg-yellow-500/10 text-yellow-500 text-xs font-medium border border-yellow-500/20">
-              {t.impressumPage?.processing || "Processing / In Bearbeitung"}
-            </span>
+          <div className="font-mono text-lg text-white border-l-2 border-gold pl-3">
+            {t.company.vatId || "DE459485701"}
           </div>
         </div>
       ),

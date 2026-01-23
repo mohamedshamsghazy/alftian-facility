@@ -8,6 +8,7 @@ export function JsonLd() {
         "url": "https://alftian-bau.com",
         "telephone": "0345 47009014",
         "email": "info@alftian-bau.com",
+        "vatID": "DE459485701",
         "priceRange": "$$",
         "address": {
             "@type": "PostalAddress",

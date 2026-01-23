@@ -9,6 +9,7 @@ export const translations = {
       phone: "0345 47009014",
       email: "info@alftian-bau.com",
       registry: "Amtsgericht Stendal, HRB 36805",
+      vatId: "DE459485701",
       ceo: "Frank Zorn",
     },
     common: {
@@ -381,6 +382,7 @@ export const translations = {
       phone: "0345 47009014",
       email: "info@alftian-bau.com",
       registry: "Amtsgericht Stendal, HRB 36805",
+      vatId: "DE459485701",
       ceo: "Frank Zorn",
     },
     common: {
@@ -709,6 +711,7 @@ export const translations = {
       phone: "0345 47009014",
       email: "info@alftian-bau.com",
       registry: "Amtsgericht Stendal, HRB 36805",
+      vatId: "DE459485701",
       ceo: "Frank Zorn",
     },
     common: {
