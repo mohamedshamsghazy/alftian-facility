@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     images: ["/images/og-image.jpg"],
   },
   alternates: {
-    canonical: "./",
+    canonical: "https://alftian-bau.com",
   },
 }
 

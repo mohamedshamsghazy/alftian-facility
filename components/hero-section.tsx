@@ -1,6 +1,7 @@
 "use client"
 
 import { useLanguage } from "@/lib/language-context"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { ScrollReveal } from "@/components/ui/scroll-reveal"
@@ -8,6 +9,16 @@ import { ArrowDown } from "lucide-react"
 
 export function HeroSection() {
   const { t } = useLanguage()
+
+  /* Optimization: Only load video on desktop to save bandwidth */
+  const [videoSource, setVideoSource] = useState<string | null>(null)
+
+  useEffect(() => {
+    // Check if device is likely desktop (width > 768px)
+    if (window.innerWidth > 768) {
+      setVideoSource("/images/hero.mp4")
+    }
+  }, [])
 
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -22,7 +33,7 @@ export function HeroSection() {
           poster="/images/hero-poster.jpg"
           className="w-full h-full object-cover min-w-full min-h-full scale-110 filter brightness-75"
         >
-          <source src="/images/hero.mp4" type="video/mp4" />
+          {videoSource && <source src={videoSource} type="video/mp4" />}
           Your browser does not support the video tag.
         </video>
 

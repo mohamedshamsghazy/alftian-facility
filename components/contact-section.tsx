@@ -146,6 +146,7 @@ export function ContactSection() {
                           type="text"
                           required
                           placeholder="Full Name"
+                          aria-label="Full Name"
                           className="w-full h-12 md:h-14 bg-emerald-900/30 border border-white/10 rounded-xl px-4 text-white text-base focus:border-gold focus:ring-1 focus:ring-gold/50 outline-none transition-all placeholder:text-white/20"
                         />
                       </div>
@@ -156,6 +157,7 @@ export function ContactSection() {
                           type="email"
                           required
                           placeholder="name@example.com"
+                          aria-label="Email Address"
                           className="w-full h-12 md:h-14 bg-emerald-900/30 border border-white/10 rounded-xl px-4 text-white text-base focus:border-gold focus:ring-1 focus:ring-gold/50 outline-none transition-all placeholder:text-white/20"
                         />
                       </div>
@@ -191,6 +193,7 @@ export function ContactSection() {
                         rows={4}
                         required
                         placeholder="How can we help you?"
+                        aria-label="Message"
                         className="w-full bg-emerald-900/30 border border-white/10 rounded-xl px-4 py-4 text-white text-base focus:border-gold focus:ring-1 focus:ring-gold/50 outline-none transition-all resize-none placeholder:text-white/20"
                       />
                     </div>
