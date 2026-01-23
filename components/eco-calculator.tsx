@@ -15,7 +15,7 @@ export function EcoCalculator() {
   return (
     <div className="w-full max-w-4xl mx-auto p-1 bg-linear-to-br from-gold/30 via-white/10 to-transparent rounded-3xl mt-24">
       <div className="bg-emerald-950/90 backdrop-blur-xl rounded-[22px] p-8 md:p-12 border border-white/5 relative overflow-hidden" dir={dir}>
-        
+
         {/* Background glow */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-green-500/10 rounded-full blur-[80px] pointer-events-none" />
 
@@ -24,7 +24,7 @@ export function EcoCalculator() {
             <div className="p-2 bg-green-500/20 rounded-lg text-green-400">
               <Leaf className="w-6 h-6" />
             </div>
-            <h3 className="text-2xl font-bold text-white">{t.calculator.title}</h3>
+            <h2 className="text-2xl font-bold text-white">{t.calculator.title}</h2>
           </div>
 
           <p className="text-white/60 mb-12">
@@ -45,6 +45,7 @@ export function EcoCalculator() {
                   step={500}
                   onValueChange={setArea}
                   className="py-4 cursor-pointer"
+                  aria-label="Project Area Slider"
                 />
                 <div className="flex justify-between text-xs text-white/30 font-mono">
                   <span>{t.calculator.labelSmall}</span>
@@ -66,7 +67,7 @@ export function EcoCalculator() {
               <div className="p-6 bg-white/5 rounded-2xl border border-white/10 relative group hover:bg-white/10 transition-colors">
                 <div className="text-sm text-white/50 uppercase tracking-widest mb-2">{t.calculator.co2Label}</div>
                 <div className="text-5xl font-bold text-white font-mono group-hover:text-green-400 transition-colors flex items-baseline gap-2">
-                  <span dir="ltr">{co2Saved.toLocaleString()}</span> 
+                  <span dir="ltr">{co2Saved.toLocaleString()}</span>
                   <span className="text-lg text-white/40">{t.calculator.co2Unit}</span>
                 </div>
               </div>
@@ -77,7 +78,7 @@ export function EcoCalculator() {
                   <span>{t.calculator.treeLabel}</span>
                 </div>
                 <div className="text-3xl font-bold text-white font-mono group-hover:text-green-400 transition-colors flex items-baseline gap-2">
-                  <span dir="ltr">{treesEquiv.toLocaleString()}</span> 
+                  <span dir="ltr">{treesEquiv.toLocaleString()}</span>
                   <span className="text-sm text-white/40">{t.calculator.treeUnit}</span>
                 </div>
               </div>

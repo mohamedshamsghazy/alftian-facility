@@ -44,8 +44,9 @@ export function CommandMenu() {
 
   return (
     <>
-      <div
+      <button
         onClick={() => setOpen(true)}
+        aria-label="Open Command Menu"
         className="fixed bottom-8 right-8 z-40 hidden md:flex items-center gap-2 px-4 py-2 bg-black/80 backdrop-blur-md border border-white/10 rounded-full text-xs text-white/50 hover:text-white hover:border-gold/50 transition-all cursor-pointer shadow-lg"
       >
         <Search className="w-3 h-3" />
