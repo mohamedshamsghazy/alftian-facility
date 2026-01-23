@@ -87,6 +87,7 @@ export function Navbar() {
               <div className="relative">
                 <button
                   onClick={() => setIsLangOpen(!isLangOpen)}
+                  aria-label="Change Language"
                   className="w-10 h-10 rounded-full bg-emerald-950/50 border border-white/10 flex items-center justify-center text-gold hover:bg-gold hover:text-emerald-950 transition-all active:scale-95"
                 >
                   <Globe className="w-5 h-5" />
@@ -119,6 +120,7 @@ export function Navbar() {
               {/* Hamburger Menu */}
               <button
                 onClick={() => setIsOpen(!isOpen)}
+                aria-label={isOpen ? "Close Menu" : "Open Menu"}
                 className="w-10 h-10 rounded-full bg-emerald-950/50 border border-white/10 flex items-center justify-center text-white hover:text-gold transition-colors active:scale-95"
               >
                 {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
