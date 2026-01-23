@@ -24,7 +24,7 @@ export function EcoCalculator() {
             <div className="p-2 bg-green-500/20 rounded-lg text-green-400">
               <Leaf className="w-6 h-6" />
             </div>
-            <h2 className="text-2xl font-bold text-white">{t.calculator.title}</h2>
+            <h3 className="text-2xl font-bold text-white">{t.calculator.title}</h3>
           </div>
 
           <p className="text-white/60 mb-12">
@@ -45,7 +45,6 @@ export function EcoCalculator() {
                   step={500}
                   onValueChange={setArea}
                   className="py-4 cursor-pointer"
-                  aria-label="Project Area Slider"
                 />
                 <div className="flex justify-between text-xs text-white/30 font-mono">
                   <span>{t.calculator.labelSmall}</span>

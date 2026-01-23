@@ -1,7 +1,6 @@
 "use client"
 
 import { useLanguage } from "@/lib/language-context"
-import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { ScrollReveal } from "@/components/ui/scroll-reveal"
@@ -9,24 +8,6 @@ import { ArrowDown } from "lucide-react"
 
 export function HeroSection() {
   const { t } = useLanguage()
-
-  /* Optimization: Only load video on desktop to save bandwidth */
-  const [videoSource, setVideoSource] = useState<string | null>(null)
-
-  useEffect(() => {
-    // Smart Loading: Check for "Data Saver" mode or slow connection
-    // Note: This API is mainly supported on Chrome/Android. iOS will default to loading the video.
-    const connection = (navigator as any).connection || (navigator as any).mozConnection || (navigator as any).webkitConnection;
-
-    if (connection && (connection.saveData || connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g')) {
-      // Slow connection? Keep existing poster, do not load video
-      console.log("Slow connection detected, skipping video load")
-      setVideoSource(null)
-    } else {
-      // Good connection? Load full video
-      setVideoSource("/images/hero.mp4")
-    }
-  }, [])
 
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -39,14 +20,14 @@ export function HeroSection() {
           muted
           playsInline
           poster="/images/hero-poster.jpg"
-          className="w-full h-full object-cover min-w-full min-h-full scale-110 filter brightness-50"
+          className="w-full h-full object-cover min-w-full min-h-full scale-110 filter brightness-75"
         >
-          {videoSource && <source src={videoSource} type="video/mp4" />}
+          <source src="/images/hero.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
 
         {/* Overlay Effects */}
-        <div className="absolute inset-0 bg-emerald-950/60" />
+        <div className="absolute inset-0 bg-emerald-950/40" />
         <div className="absolute inset-0 bg-[url('/images/noise.png')] opacity-20 mix-blend-overlay" />
       </div>
 
