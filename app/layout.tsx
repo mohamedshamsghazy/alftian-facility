@@ -21,6 +21,7 @@ import { CookieBanner } from "@/components/cookie-banner"
 
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://alftian-bau.com"),
   title: {
     default: "Alftian Facility & Bau GmbH | Premier Construction & Facility Management",
     template: "%s | Alftian Facility & Bau GmbH"

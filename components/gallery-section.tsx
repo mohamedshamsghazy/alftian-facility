@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useLanguage } from "@/lib/language-context"
+import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { ScrollReveal } from "@/components/ui/scroll-reveal"
 import { ArrowRight } from "lucide-react"
@@ -78,10 +79,12 @@ export function GallerySection() {
               >
                 {/* Background Image */}
                 <div className="absolute inset-0">
-                  <img
+                  <Image
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   {/* تدرج لوني أقوى للموبايل */}
                   <div className="absolute inset-0 bg-linear-to-t from-emerald-950 via-emerald-950/60 to-transparent opacity-90 md:opacity-80 transition-opacity duration-500" />
